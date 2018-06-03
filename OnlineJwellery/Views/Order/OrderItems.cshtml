@@ -1,0 +1,43 @@
+﻿@model OnlineJwellery.Entities.OrderItems
+<tr>
+
+    <td>
+        <a href='@Url.Action("Details", "Product", new { id = Model.Product.Id })'>
+            <img class="img-thumbnail" src="@Url.Content(Model.Product.ImageUrlDescription)" height="100" width="100" />
+        </a>
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelModel => Model.Product.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Product.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Product.Price)
+    </td>
+
+    <td>
+        Quantity : @Html.DisplayFor(modelModel => Model.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Amount)
+    </td>
+    @{ 
+
+        var HasReviewed = @Model.Product.Review.Where(rev => rev.OrderId == Model.OrderId).Any();
+    }
+    @if (HasReviewed)
+    {
+        <td>
+            <label class="text-success">Reviewed</label>
+        </td>
+    }
+    else
+    {
+        <td>
+            <button class="btn" data-toggle="modal" data-target="#myModal" data-order-id=@Model.OrderId data-product-id=@Model.Product.Id>Review It</button>
+        </td>
+    }
+   
+</tr>

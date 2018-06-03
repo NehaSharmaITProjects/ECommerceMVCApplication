@@ -1,0 +1,55 @@
+﻿@model OnlineJwellery.Entities.Order
+
+@{
+    ViewBag.Title = "Purchase";
+}
+
+<h2>Purchase</h2>
+
+<div>
+    <h4>Order Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OdrNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OdrNum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderPlacedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderPlacedDate)
+        </dd>
+
+
+    </dl>
+</div>
+
+<table class="table">
+
+    @foreach (var item in Model.OrderItems)
+    {
+       @Html.Partial("_OrderItems", item)
+    }
+    <tr>
+        <td colspan="5" align="right">Total Amount: </td>
+        <td> @Html.DisplayFor(model => model.TotalAmount)</td>
+    </tr>
+</table>
+
+<p>
+    
+    @Html.ActionLink("Continue Shopping", "Product","Index")
+</p>

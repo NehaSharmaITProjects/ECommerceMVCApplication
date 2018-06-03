@@ -1,0 +1,118 @@
+﻿@model IEnumerable<OnlineJwellery.Entities.Order>
+
+@{
+    ViewBag.Title = "PreviousOrders";
+}
+
+<h2>PreviousOrders</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OdrNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderPlacedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OdrNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderPlacedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+
+            <button class="btn orderdetails_btn" data-toggle="collapse" data-order-id ="@item.Id" data-target=@item.OrderElementId>Details</button>
+        </td>
+    </tr>
+  <tr id=@item.OrderElement class="collapse">
+      <td colspan="3">
+          <table style="width:100%">
+                
+             @foreach (var Orderitem in item.OrderItems)
+                {
+                    @Html.Partial("OrderItems", Orderitem)
+                }
+          </table>
+      </td>
+  </tr>
+              
+      
+}
+
+</table>
+
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header" style="padding:5px">
+                    <h4 class="modal-title">Review the Product</h4>
+                </div>
+@using (Html.BeginForm("AddComment", "Order", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+                <!-- Modal body -->
+                <div class="modal-body" style="height:180px;padding:10px">
+                    @Html.Hidden("ProductId")
+                    @Html.Hidden("OrderId")
+                    Rating: <select id="Rating" name="Rating" style="padding:5px">
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                    <textarea  id="Description" name="Description" style="width:100%;max-width:none;height:80%"></textarea>
+                </div>
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer" style="margin-top:0px;padding:5px">
+                    @*<input type="submit" value="Save" class="btn btn-default"  onclick="location.href='@Url.Action("AddComment", "Order")'"/>*@
+                    <input type="submit" value="Save" class="btn btn-danger" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+}
+            </div>
+        </div>
+    </div>
+
+
+@section scripts{
+    
+    <script>
+
+        $(document).ready(function () {
+            $("#myModal").on('show.bs.modal', function (e) {
+                var productId = $(e.relatedTarget).data('product-id');
+                var orderId = $(e.relatedTarget).data('order-id');
+                //populate the textbox
+                $(e.currentTarget).find('input[name="ProductId"]').val(productId);
+                $(e.currentTarget).find('input[name="OrderId"]').val(orderId);
+               // alert('The modal is fully shown.');
+            });
+        });
+
+    </script>
+}

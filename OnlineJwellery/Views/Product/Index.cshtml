@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OnlineJwellery.Entities.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+@*We are showing the latest @Model.Count() Products*@
+<h2>Our Jewellery Line</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+<div class="row">
+    <div class="col-md-4">
+        <ul class="pagination">
+            <li>@Html.ActionLink("1", "GetProductByPageNumber", new { pagenumber = 0 })</li>
+            <li>@Html.ActionLink("2", "GetProductByPageNumber", new { pagenumber = 1 })</li>
+            <li>@Html.ActionLink("3", "GetProductByPageNumber", new { pagenumber = 2 })</li>
+            <li>@Html.ActionLink("4", "GetProductByPageNumber", new { pagenumber = 3 })</li>
+            <li>@Html.ActionLink("5", "GetProductByPageNumber", new { pagenumber = 4 })</li>
+            <li>@Html.ActionLink("6", "GetProductByPageNumber", new { pagenumber = 5 })</li>
+            <li>@Html.ActionLink("7", "GetProductByPageNumber", new { pagenumber = 6 })</li>
+            <li>@Html.ActionLink("8", "GetProductByPageNumber", new { pagenumber = 7 })</li>
+            <li>@Html.ActionLink("9", "GetProductByPageNumber", new { pagenumber = 8 })</li>
+            <li>@Html.ActionLink("10", "GetProductByPageNumber", new { pagenumber = 9 })</li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+        <table class="table table-bordered ">
+
+            <tr>
+                <td align="center">
+                    <a href='@Url.Action("Details", "Product",new { id = item.Id })'>
+                        <img src="@Url.Content(item.ImageUrlDescription)" />
+                    </a>                     
+                </td>
+            </tr>
+            <tr>
+                <td class="text-success"> @*@Html.DisplayFor(modelItem => item.Description)*@
+                @Html.ActionLink(item.Description, "Details", new { id = item.Id })
+                </td>
+
+            </tr>
+            <tr>
+                <td class="text-warning">Price : @Html.DisplayFor(modelItem => item.Price)</td>
+            </tr>
+           
+            @*<tr>
+                <td> @Html.DisplayFor(modelItem => item.InStore)</td>
+            </tr>*@
+
+        </table>
+       
+        
+    </div>
+}
+</div>
+
+
+   

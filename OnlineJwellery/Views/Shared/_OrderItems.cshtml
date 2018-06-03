@@ -1,0 +1,28 @@
+﻿@model OnlineJwellery.Entities.Basket
+<tr>
+
+    <td>
+        <a href='@Url.Action("Details", "Product",new { id = Model.Product.Id })'>
+            <img class="img-thumbnail" src="@Url.Content(Model.Product.ImageUrlDescription)" height="100" width="100" />
+        </a>
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelModel => Model.Product.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Product.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Product.Price)
+    </td>
+
+    <td>
+        Quantity : @Html.DisplayFor(modelModel => Model.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelModel => Model.Amount)
+    </td>
+
+    
+</tr>

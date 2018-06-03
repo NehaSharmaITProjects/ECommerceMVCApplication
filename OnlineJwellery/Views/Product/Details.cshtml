@@ -1,0 +1,112 @@
+﻿@model OnlineJwellery.Entities.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="row">
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            @*<dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>*@
+            <dd>
+                <a href='@Url.Action("Details", "Product",new { id = Model.Id })'>
+                    <img src="@Url.Content(Model.ImageUrlDescription)" />
+                </a>
+            </dd>
+         
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+           
+            <dd>
+               Description
+            </dd>
+            <dd class="text-success">
+                <h4>  @Html.DisplayFor(model => model.Description)</h4>
+            </dd>
+            <dd class="text-warning">
+                <h3> @Html.DisplayFor(model => model.Price)</h3>
+            </dd>
+            <dd>
+                In Stock 
+            </dd>
+            <dd class="text-info">
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dd style="padding-top:10px">
+                <h5>  @(Model.InStore? "Available in Store" : "Not Available in Store") </h5>
+            </dd>
+            @if (Model.Quantity != 0)
+            {
+            <dd>             
+               <h5> @Html.ActionLink("Add to Cart", "AddtoCart", new { id = Model.Id }, new { data_toggle = "popover", title = "", data_content = "Item Added to basket" }) </h5>            
+            </dd>
+            }
+        </dl>
+    </div>
+</div>
+    <br />
+    @if (Model.Review.Count > 0)
+    {
+   
+    <label class="text-info">Reviews</label>
+        foreach (var rev in Model.Review)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <dl>
+                        <dd>
+                            @for (var a = 0; a < rev.Rating; a++)
+                            {
+                                <img src="~/Images/star_16.png" />
+                            }                                                   
+                           &nbsp; @Html.DisplayFor(modelItem => rev.ReviewDate)
+                        </dd>
+                        <dd style="padding-top:5px">
+                            <table class="table table-striped table-condensed table-bordered">
+                                <tr style="min-height:70px">
+                                    <td colspan="1">@Html.DisplayFor(modelItem => rev.Description)</td>
+                                </tr>
+                            </table>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <label class="text-info">No Reviews</label>
+    }
+
+<br/>
+<p>
+    @*@Html.ActionLink("Add to Cart", "AddtoCart", new { id = Model.Id } , new { data_toggle = "modal", href = "#myModal" }) |*@
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to Product List", "Index")
+</p>
+
+
+@section scripts {
+
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+
+        $('[data-toggle="popover"]').click(function () {
+
+            setTimeout(function () {
+                $('.popover').fadeOut('slow');
+            }, 10000);
+
+        });
+    </script>
+}

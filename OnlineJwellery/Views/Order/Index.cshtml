@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OnlineJwellery.Entities.Order>
+
+@{
+    ViewBag.Title = "Order";
+}
+<hgroup class="title">
+        <h1>@ViewBag.Title</h1>
+    <h1>@ViewBag.Message</h1>
+</hgroup>
+<div>Location: @ViewBag.Location</div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.OdrNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Customer.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.OdrNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preference)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
